@@ -16,16 +16,25 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
         />
 
         <div className="inline-flex align-middle w-full justify-evenly">
-          <button className="inline focus:outline-none py-1 px-3" onClick={() => onUpdateCartQty(item.id, item.quantity - 1)} >
+          <button
+            className="inline focus:outline-none py-1 px-3"
+            onClick={() => onUpdateCartQty(item.id, item.quantity - 1)}
+          >
             -
           </button>
           <div className="inline focus:outline-none py-1 px-3">
             {item.quantity}
           </div>
-          <button className="inline focus:outline-none py-1 px-3" onClick={() => onUpdateCartQty(item.id, item.quantity + 1)} >
+          <button
+            className="inline focus:outline-none py-1 px-3"
+            onClick={() => onUpdateCartQty(item.id, item.quantity + 1)}
+          >
             +
           </button>
-          <button className="rounded-full bg-red-500 text-white font-bold py-1 px-3 block focus:outline-none" onClick={() => onRemoveFromCart(item.id)} >
+          <button
+            className="rounded-full bg-red-500 text-white font-bold py-1 px-3 block focus:outline-none"
+            onClick={() => onRemoveFromCart(item.id)}
+          >
             Remove
           </button>
         </div>
