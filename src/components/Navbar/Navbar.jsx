@@ -1,80 +1,56 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import ecommerce from "../../images/ecommerce.png";
+import React, { useState } from 'react';
+import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons';
+import { Link, useLocation } from 'react-router-dom';
+import ecommerce from '../../images/ecommerce.png';
+import useStyles from './styles';
 
-const Navbar = ({ totalItems }) => {
-  const [active, setActive] = useState(false);
-
+const PrimarySearchAppBar = ({ totalItems }) => {
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const classes = useStyles();
   const location = useLocation();
 
-  const handleClick = () => {
-    setActive(!active);
-  };
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  const renderMobileMenu = (
+    <Menu anchorEl={mobileMoreAnchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} id={mobileMenuId} keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right' }} open={isMobileMenuOpen} onClose={handleMobileMenuClose}>
+      <MenuItem>
+        <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+          <Badge badgeContent={totalItems} color="secondary">
+            <ShoppingCart />
+          </Badge>
+        </IconButton>
+        <p>Cart</p>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
     <>
-      <nav className="fixed w-full flex items-center flex-wrap bg-gray-400 h-auto p-3">
-        <Link to="/">
-          <img
-            src={ecommerce}
-            alt=""
-            className="fill-current text-white h-8 w-8 mr-2"
-          />
-        </Link>
-        <button
-          className=" inline-flex p-3 rounded lg:hidden text-white ml-auto focus:outline-none"
-          onClick={handleClick}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
-
-        <div
-          className={`${
-            active ? "" : "hidden"
-          }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
-        >
-          <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
-            <Link
-              to="/"
-              className="lg:inline-flex lg:w-auto w-full px-3 py-4 rounded text-white font-bold items-center justify-center"
-            >
-              Home
-            </Link>
-            {location.pathname === "/" && (
-              <Link to="/cart">
-                <span className="mr-5 relative inline-block">
-                  <button className="focus:outline-none">
-                    <FontAwesomeIcon
-                      className=" mx-4 my-4 text-white fill-current hover:text-black"
-                      icon={faShoppingCart}
-                    ></FontAwesomeIcon>
-                    <span className="absolute top-3 right-3 inline-flex items-center justify-center px-1 py-1 text-xs font-semibold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                      {totalItems}
-                    </span>
-                  </button>
-                </span>
-              </Link>
-            )}
+      <AppBar position="fixed" className={classes.appBar} color="inherit">
+        <Toolbar>
+          <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
+            <img src={ecommerce} alt="commerce.js" height="25px" className={classes.image} /> Commerce.js
+          </Typography>
+          <div className={classes.grow} />
+          {location.pathname === '/' && (
+          <div className={classes.button}>
+            <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+              <Badge badgeContent={totalItems} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
           </div>
-        </div>
-      </nav>
+          )}
+        </Toolbar>
+      </AppBar>
+      {renderMobileMenu}
     </>
   );
 };
 
-export default Navbar;
+export default PrimarySearchAppBar;
