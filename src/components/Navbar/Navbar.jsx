@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
-import ecommerce from '../../images/ecommerce.png';
+import logo from '../../images/logo1.png';
 import useStyles from './styles';
 
 const PrimarySearchAppBar = ({ totalItems }) => {
@@ -34,7 +34,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
           <Typography component={Link} to="/" variant="h6" className={classes.title} color="inherit">
-            <img src={ecommerce} alt="commerce.js" height="25px" className={classes.image} /> Commerce.js
+            <img src={logo} alt="commerce.js" height="25px" className={classes.image} /> Buzzed
           </Typography>
           <div className={classes.grow} />
           {location.pathname === '/' && (

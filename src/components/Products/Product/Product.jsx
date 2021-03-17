@@ -9,7 +9,7 @@ const Product = ({ product, onAddToCart }) => {
   const handleAddToCart = () => onAddToCart(product.id, 1);
 
   return (
-    <Card className={classes.root}>
+    <Card id="shop" className={classes.root}>
       <CardMedia className={classes.media} image={product.media.source} title={product.name} />
       <CardContent>
         <div className={classes.cardContent}>
